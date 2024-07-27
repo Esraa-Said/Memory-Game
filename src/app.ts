@@ -21,6 +21,7 @@ prepare.progress = 0;
 const numberOfCards = 20;
 const tempNumbers = [];
 let cardsHtmlContent = "";
+let gameTimeout:any; // Variable to store the timeout ID
 //#endregion
 
 //#region Functions Declaration
@@ -104,7 +105,8 @@ const checkEnd = () => {
   if (prepare.cards.filter((card) => !card.clicked).length === numberOfCards) {
     stopAudio(prepare.wrongAudio);
     stopAudio(prepare.correctAudio);
-    prepare.gameOverAudio.play();
+    prepare.completeAudio.play();
+    clearTimeout(gameTimeout); // Clear the timeout if the game is completed
   }
 };
 
@@ -114,6 +116,17 @@ const stopAudio = (audio: HTMLAudioElement) => {
     audio.currentTime = 0;
   }
 };
+
+const startGameTimer = () => {
+  gameTimeout = setTimeout(() => {
+    prepare.gameOverAudio.play();
+    alert("Game Over! Time Out.");
+    prepare.cards.forEach((card, index) => {
+      card.clicked = false; // Disable clicking on all cards
+    });
+  }, 3 * 60 * 1000); // 3 minutes 
+};
+
 //#endregion
 
 //#region Game Logic
@@ -161,5 +174,9 @@ prepare.cards.forEach((item, index) => {
 });
 
 document.getElementById("cards").innerHTML = cardsHtmlContent;
+
+// Start the game timer 
+startGameTimer();
+
 //#endregion
 //  <span class = "card-content">${index + 1}</span>

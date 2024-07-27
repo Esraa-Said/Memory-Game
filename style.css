@@ -1,13 +1,14 @@
 body {
-  background-color:cadetblue;
   height: 100vh;
   color: cadetblue;
+  background-image: url("/assets/image.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #content {
   text-align: center;
   text-shadow: 0px 4px 3px #007bff, 0px 8px 13px #007bff, 0px 18px 23px #007bff;
-  opacity: 0.9;
   color: blue;
 
 }
